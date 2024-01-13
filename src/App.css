@@ -1,0 +1,95 @@
+.layout-body {
+    height: 577px;
+    padding: 1rem;
+    padding-top: 5px;
+    overflow: auto;
+}
+
+.layout-body-dialog {
+    height: 577px;
+    padding: 0.1rem;
+    padding-top: 10px;
+}
+
+.layout-font {
+    text-align: center;
+    font-size: 3.5rem;
+    padding: 1rem;
+    padding-bottom: 5px;
+    position: relative;
+}
+
+.font-size-name {
+    font-size: 3.3rem;
+    font-family: 'Gaegu', cursive;
+}
+
+.font-size-detail {
+    font-size: 1.5rem;
+}
+
+.dialogAddPokemon {
+    padding: 1rem;
+}
+
+.cardBox {
+    padding: 3px;
+    box-sizing: content-box;
+    width: 100%;
+    box-shadow: 3px 4px 8px #d5d6dc;
+    margin-bottom: 1rem;
+}
+
+.cardBox-dialog {
+    padding: 3px;
+    box-sizing: content-box;
+    width: 100%;
+    margin-bottom: 1rem;
+    box-shadow: 3px 4px 8px #d5d6dc;
+    transition: box-shadow 0.1s;
+}
+.cardBox-dialog:hover {
+    box-shadow: 3px 4px 8px #474444;
+}
+
+.btnDialogAdd {
+    color: #dc7777;
+    font-size: 2.5rem;
+    text-decoration-line: none;
+}
+
+.btnDialogRemove {
+    color: #dc7777;
+    font-size: 2rem;
+    text-decoration-line: none;
+}
+
+.layout-footer-background {
+    text-align: center;
+    padding: 1.8rem;
+    background-color: #ec5656;
+}
+
+.layout-footer {
+    position: absolute;
+    bottom: 1%;
+    left: 45%;
+}
+
+.layout-btnAdd {
+    display: flex;
+    text-align: center;
+    position: relative;
+}
+
+.buttonAddPokemon {
+    z-index: 100;
+    width: 100px;
+    height: 100px;
+    background-color: #ec5656;
+    border-radius: 50%;
+    font-size: 65px;
+    text-decoration-line: none;
+    color: #ffffff;
+}
+
