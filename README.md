@@ -10,10 +10,11 @@ This project is **\*React Project\*** เขียนอยู่ในรูป
 1. Dowload Source code ใน `Github` ลงมาในเครื่อง
 2. โดยใน `Github` คลิก `<> Code` เลือก Download ZIP
 3. แตกไฟล์ ZIP
-4. จากนั้นทำการเปิดตัว Project และส่วนหัวเมนูด้านบนเลือก Terminal จากนั้นเลือก New Terminal จะปรากฎ tab ใหม่มาด้านล่าง จากนั้นใช้คำสั่ง `npm install` และรอจนกว่าจะ install เสร็จสิ้น
-5. จากนั้นใช้คำสั่ง `npm start` เพื่อ run ตัว Project
-6. จากนั้นทำการเปิด Terminal ใหม่ขึ้นมาอีก 1 Terminal และใช้คำสั่ง `npm run api` เพื่อ run service api
-7. เสร็จสิ้นการ install และ run project
+4. จากนั้นทำการเปิดตัว Project และส่วนหัวเมนูด้านบนเลือก Terminal จากนั้นเลือก New Terminal จะปรากฎ tab ใหม่มาด้านล่าง
+5. จากนั้นใช้คำสั่ง `npm install` และรอจนกว่าจะ install เสร็จสิ้น
+6. จากนั้นใช้คำสั่ง `npm start` เพื่อ run ตัว Project
+7. จากนั้นทำการเปิด Terminal ใหม่ขึ้นมาอีก 1 Terminal และใช้คำสั่ง `npm run api` เพื่อ run service api
+8. เสร็จสิ้นการ install และ run project
 
 # Requirement from AppMan Pokédex (My Pokémon cards list)
 
