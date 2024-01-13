@@ -1,7 +1,7 @@
 # Test-Front-end-appman-pokedex
 This repository for send test front-end position of appman
 
-This project is **\*React Project\*** เขียนอยู่ในรูปแบบ class component
+This project is **\*React Project\*** เขียนอยู่ในรูปแบบ class component โดยการทำงานทั้งหมดจะอยู่ภายในไฟล์ `App.js` และกำหนด style ในไฟล์ `App.css` 
 
 # Requirement from AppMan Pokédex (My Pokémon cards list)
 
