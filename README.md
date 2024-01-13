@@ -6,6 +6,17 @@ This project is **\*React Project\*** เขียนอยู่ในรูป
 
 **Project** เป็น React version 16 โดยผมจะใช้ตัว Libraary ช่วยในเรื่องของ UI โดยการใช้ Material UI Version 5
 
+### คำจำกัดความเนื้อหาใน Project เบื้องต้น
+1. โดยเบื้องต้นจะเป็น Project ที่เกี่ยวกับ Pokemon คือการค้นหา เพิ่มและลบ card pokemon เข้ามาภายใน My Pokedex ของเรา
+2. โดย Card Pokemon ทั้งหมดจะถูกแสดงอยู่ภายใน Modal Dialog
+3. เราสามารถ Search ชื่อ card pokemon ที่เราต้องการได้
+4. เราสามารถ Add card pokemon ที่เราต้องการเข้ามาใน My pokedex ของเราได้
+5. หลังจากที่เรา Add card ที่เราต้องการแล้ว ภายใน Dialog การ์ดที่เราทำการ Add มาทั้งหมดนั้นจะหายไปจาก Dialog ถ้าทำการ Search ก็จะหาไม่เจอ เพราะเราได้ทำการ Add เข้ามาใน My pokedex แล้ว
+6. จากนั้นกลับมาหน้า My pokedex ของเราจะแสดงรายการ card pokemon ที่เราทำการ Add เข้ามา
+7. โดยเนื้อหาที่แสดงจะมี รูป card pokemon, Hp(เลือด), Strength(ความแข็งแกร่ง), Weakness(ความอ่อนแอ) และ Happiness(ค่าความสุข)
+8. ภายใน My pokedex เราสามารถลบรายการ card ที่เราไม่ต้องการได้ โดยการคลิกไปที่ปุ่ม X(กากบาท) ตรงมุมขวาบนของ card จากนั้น card ใบนั้นจะหายไป
+9. ถ้าต้องการเพิ่ม card ใหม่ ก็ทำการคลิกปุ่ม +(Add) ด้านล่างเพื่อเพิ่ม card ใหม่เข้ามาใน My pokedex
+
 ### คำอธิบายในการเริ่มต้นใช้งาน Project
 1. Dowload Source code ใน `Github` ลงมาในเครื่อง
 2. โดยใน `Github` คลิก `<> Code` เลือก Download ZIP
