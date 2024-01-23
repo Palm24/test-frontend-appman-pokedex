@@ -28,4 +28,8 @@
     font-family: 'Atma', cursive;
     color: #dc7777;
     font-size: 2.5rem;
+    background-color: #d5d6dc;
+    border: 0;
+    cursor: pointer;
+    padding: 0;
 }

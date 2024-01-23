@@ -57,14 +57,26 @@
     position: relative;
 }
 
-/* .buttonAddPokemon {
-    z-index: 100;
+.buttonRemovePokemon {
+    font-family: 'Atma', cursive;
+    color: #dc7777;
+    font-size: 2.5rem;
+    background-color: #d5d6dc;
+    border: 0;
+    cursor: pointer;
+    padding: 0;
+}
+
+.buttonAddPokemon {
+    font-family: 'Atma', cursive;
+    border: 0;
+    padding: 0;
     width: 100px;
     height: 100px;
     background-color: #ec5656;
     border-radius: 50%;
     font-size: 65px;
-    text-decoration-line: none;
     color: #ffffff;
-} */
+    cursor: pointer;
+}
 
