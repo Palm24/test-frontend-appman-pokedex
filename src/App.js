@@ -1,36 +1,15 @@
 import React, { Component } from 'react'
 import './App.css'
 
-// import { styled } from '@mui/system';
-import Paper from '@mui/material/Paper';
-import InputBase from '@mui/material/InputBase';
-import Button from '@mui/material/Button';
-
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
-
-import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
 
 import Box from '@mui/system/Box';
-import search from './search.png';
 import cute from './cute.png';
 
-// const COLORS = {
-//   Psychic: "#f8a5c2",
-//   Fighting: "#f0932b",
-//   Fairy: "#c44569",
-//   Normal: "#f6e58d",
-//   Grass: "#badc58",
-//   Metal: "#95afc0",
-//   Water: "#3dc1d3",
-//   Lightning: "#f9ca24",
-//   Darkness: "#574b90",
-//   Colorless: "#FFF",
-//   Fire: "#eb4d4b"
-// }
+import CustomDialog from './Dialog';
 
 class App extends Component {
   constructor(props) {
@@ -50,16 +29,21 @@ class App extends Component {
       isMouseOverBox: null,
       isParentIndex: null,
       searchNameQuery: '',
+      searchTypeQuery: '',
     }
   };
 
   componentDidMount() {
-    const { searchNameQuery, selectCards, countNumSelectCard, removeNumSelectCard } = this.state;
-    var searchName = "";
+    const { searchNameQuery, searchTypeQuery, selectCards, countNumSelectCard, removeNumSelectCard } = this.state;
+
+    var searchQuery = "";
     if (searchNameQuery !== "") {
-      searchName = `&name=${searchNameQuery}`;
+      searchQuery = `&name=${searchNameQuery}`;
+    } else if (searchTypeQuery !== "") {
+      searchQuery = `&type=${searchTypeQuery}`
     }
-    const url = `http://localhost:3030/api/cards?limit=20${searchName}`;
+    
+    const url = `http://localhost:3030/api/cards?limit=20${searchQuery}`;
     fetch(url).then((response) => {
       if (!response.ok) {
         throw new Error('Network response was not ok!!');
@@ -124,16 +108,17 @@ class App extends Component {
   };
 
   componentDidUpdate(previewProps, previewState) {
-    const { newDataList, searchNameQuery } = this.state;
+    const { newDataList, searchNameQuery, searchTypeQuery } = this.state;
 
     if (
-      previewState.searchNameQuery !== this.state.searchNameQuery ||
-      previewState.searchTypeQuery !== this.state.searchTypeQuery
+      previewState.searchNameQuery !== this.state.searchNameQuery 
+      || previewState.searchTypeQuery !== this.state.searchTypeQuery
     ) {
       this.componentDidMount();
 
       const filterResult = newDataList.filter(card => 
-        card.name?.toLowerCase().includes(searchNameQuery.toLowerCase())  
+        card.name?.toLowerCase().includes(searchNameQuery.toLowerCase()) 
+        || card.type?.toLowerCase().includes(searchTypeQuery.toLowerCase())
       );
   
       this.setState({newDataList: filterResult});
@@ -198,14 +183,6 @@ class App extends Component {
     return totalNumber;
   };
 
-  onOverDisplayAddBtn = (index) => {
-    this.setState({ isDisplayAddBtn: index });
-  };
-
-  onOutDisplayAddBtn = () => {
-    this.setState({ isDisplayAddBtn: null });
-  };
-
   onOverDisplayRemoveBtn = (index) => {
     this.setState({ isDisplayRemoveBtn: index });
   };
@@ -226,16 +203,8 @@ class App extends Component {
     this.setState({ openDialog: false });
   };
 
-  handleSearchNameQueryChange = e => {
-    this.setState({ searchNameQuery: e.target.value });
-  };
-
-  handleSearchTypeQueryChange = e => {
-    this.setState({ searchTypeQuery: e.target.value });
-  };
-
-  handleAddPokemon = (index, pokemon) => {
-    const { newDataList, selectCards } = this.state;
+  handleAddPokemon = (pokemon) => {
+    const { newDataList } = this.state;
 
     const isDuplicate = newDataList.some(
       (card) => card.id === pokemon.id
@@ -272,116 +241,27 @@ class App extends Component {
     }));
   };
 
-  renderDialogBoxes = (newDataList, selectCards, parentIndex = null) => {
-    return newDataList.map((pokemon, index) => (
-      <Box
-        key={index}
-        onMouseEnter={() => this.onOverDisplayAddBtn(parentIndex !== null ? parentIndex : index)}
-        onMouseLeave={this.onOutDisplayAddBtn}
-      >
-        <div className='cardBox-dialog'>
-          <Card sx={{ backgroundColor: '#d5d6dc'}}>
-            <Grid container spacing={2} sx={{ padding: '0.5rem' }}>
-              <Grid item xs={3}>
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image={pokemon.cardImageUrl}
-                  title={pokemon.name}
-                  style={{ width: '200px', height:'280px' }}
-                />
-              </Grid>
-              <Grid item xs={9}>
-                  <Box display="flex">
-                    <Box flex="1" sx={{ marginLeft: '1rem' }}>
-                      <div style={{ display: 'flex' ,justifyContent: 'flex-start' }}>
-                        <div className='font-size-name'>{pokemon.name}</div>
-                      </div>
-                    </Box>
-                    <Box flex="1">
-                    { this.state.isDisplayAddBtn === (parentIndex !== null ? parentIndex: index) && (
-                      <div style={{ display: 'flex' ,justifyContent: 'flex-end' }}>
-                        <a href='#' 
-                          className='btnDialogAdd' 
-                          onClick={
-                            () => this.handleAddPokemon(parentIndex !== null ? parentIndex : index,pokemon)
-                          }>
-                          Add
-                        </a>
-                      </div>
-                    )}
-                    </Box>
-                  </Box>
-                  <Box sx={{ padding: '1rem', paddingTop: '0' }}>
-                    {/* Hp */}
-                    <div className='font-size-detail'>
-                      <Grid container>
-                        <Grid item xs={2} sm={2}>
-                          HP
-                        </Grid>
-                        {/* Hp */}
-                        <Grid item xs={10} sm={10} sx={{ display: 'flex', alignItems: 'center' }}>
-                          <Box sx={{ width: '70%', height: '25px', backgroundColor: '#e4e4e4', borderRadius: '20px', boxShadow: '3px 4px 8px #d4d4d4' }}>
-                            <Box width={`${pokemon.hp}%`} sx={{ height: '25px', backgroundColor: '#f3701a', borderRadius: '20px' }}></Box>
-                          </Box>
-                        </Grid>
-                      </Grid>
-                    </div>
-                    {/* Strength */}
-                    <div className='font-size-detail'>
-                      <Grid container>
-                        <Grid item xs={2} sm={2}>
-                          STR
-                        </Grid>
-                        <Grid item xs={10} sm={10} sx={{ display: 'flex', alignItems: 'center' }}>
-                          <Box sx={{ width: '70%', height: '25px', backgroundColor: '#e4e4e4', borderRadius: '20px', }}>
-                            <Box width={`${pokemon.strength}`} sx={{ height: '25px', backgroundColor: '#f3701a', borderRadius: '20px' }}></Box>
-                          </Box>
-                        </Grid>
-                      </Grid>
-                    </div>
-                    {/* Weak */}
-                    <div className='font-size-detail'>
-                      <Grid container>
-                        <Grid item xs={2} sm={2}>
-                          Weak
-                        </Grid>
-                        <Grid item xs={10} sm={10} sx={{ display: 'flex', alignItems: 'center' }}>
-                          <Box sx={{ width: '70%', height: '25px', backgroundColor: '#e4e4e4', borderRadius: '20px', }}>
-                            <Box width={`${pokemon.weakness}`} sx={{ height: '25px', backgroundColor: '#f3701a', borderRadius: '20px' }}></Box>
-                          </Box>
-                        </Grid>
-                      </Grid>
-                    </div>
-                    <div className='font-size-detail'>
-                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        {Array.from({ length: pokemon.happiness }, (_, index) => (
-                          <img
-                            key={index}
-                            src={cute}
-                            alt='happiness'
-                            style={{ maxWidth: '10%', height: 'auto' }}
-                          />
-                        ))}
-                      </Box>
-                    </div>
-                  </Box>
-              </Grid>
-            </Grid>
-          </Card>
-        </div>
-      </Box>
-    ))
-  }
+  handleSearchQueryFromDialog = (searchDataType, data) => {
+    if (searchDataType === "name") {
+      this.setState({ searchNameQuery: data });
+    } else if (searchDataType === "type") {
+      this.setState({ searchTypeQuery: data });
+    }
+  };
 
   render() {
-    const { newDataList, searchNameQuery, isParentIndex, selectCards, dataArray  } = this.state;
+    const { newDataList, isParentIndex, selectCards, countNumSelectCard  } = this.state;
     return (
       <div className="App">
         <div className="layout-font">My Pokedex</div>
         {/* body */}
         <div className="layout-body">
-          {selectCards != [] && (
+          {!countNumSelectCard && (
+            <div className='isDisplay-body'>
+              Now, you don't have any Card Pokémon in Pokedex!!
+            </div>
+          )}
+          {countNumSelectCard && (
           <div>
             {/* Grid แสดงข้อมูล */}
             <Grid container spacing={2} sx={{ padding: '0.5rem' }}>
@@ -415,13 +295,21 @@ class App extends Component {
                                 <Grid item xs={2}>
                                 { this.state.isDisplayRemoveBtn === (isParentIndex !== null ? isParentIndex: index) && (
                                   <div style={{ display: 'flex' ,justifyContent: 'flex-end', padding: '0' }}>
-                                    <a href='#' 
-                                      className='btnDialogRemove'
+                                    <Button
+                                      variant='text'
+                                      sx={{
+                                        padding: '0',
+                                        fontFamily: 'Atma',
+                                        fontSize: '2.3rem',
+                                        color: '#dc7777',
+                                        '&:hover': {background: '#d5d6dc', boxShadow: 'none'}
+                                      }}
                                       onClick={
-                                        () => this.handleRemovePokemon(isParentIndex !== null ? isParentIndex : index,pokemon)
-                                      }>
+                                        () => this.handleRemovePokemon(isParentIndex !== null ? isParentIndex : index, pokemon)
+                                      }
+                                    >
                                       X
-                                    </a>
+                                    </Button>
                                   </div>
                                 )}
                                 </Grid>
@@ -486,52 +374,45 @@ class App extends Component {
               ))}
             </Grid>
           </div>
-          )}
-          
+          )}       
         </div>
-        {/* footer */}
+        
+        {/* Footer */}
         <div className='layout-footer'>
           <div className='layout-btnAdd'>
-              <a href='#' type='button' className='buttonAddPokemon' onClick={this.handleOpenDialog}>
-                <span>+</span>
-              </a>
+              <Button
+                variant='text'
+                sx={{
+                  width: '100px',
+                  height: '100px',
+                  backgroundColor: '#ec5656',
+                  borderRadius: '50%',
+                  color: '#ffffff',
+                  padding: '0',
+                  fontFamily: 'Atma',
+                  fontSize: '65px',
+                  '&:hover': {
+                    background: '#ec5656', boxShadow: 'none'
+                  }
+                }}
+                onClick={this.handleOpenDialog}
+              >
+                +
+              </Button>
           </div>
         </div>
         <div className='layout-footer-background'></div>
 
-        {/* Dialog */}
-        <Dialog 
-          sx={{ backdropFilter: 'blur(1px)', backgroundColor: '#000000a3' }}
-          maxWidth="md"
-          fullWidth
-          open={this.state.openDialog} 
-          onClose={this.handleCloseDialog}
-        >
-          <DialogTitle>
-            <Paper 
-              component="form"
-              sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 'full', border: '1px solid #e6e6e6' }}>
-              <InputBase 
-                sx={{ ml: 1, flex: 1 }}
-                placeholder='Find Pokemon'
-                inputProps={{ 'aria-label': 'find pokemon' }}
-                value={searchNameQuery}
-                onChange={this.handleSearchNameQueryChange}
-              />
-              <img
-                src={search}
-                alt='icon search'
-                style={{ maxWidth: '5%', height: 'auto' }}
-              />
-            </Paper>
-          </DialogTitle>
-          <DialogContent sx={{ boxShadow: '3px 4px 8px #474444' }}>
-            <div className="layout-body-dialog">
-              {this.renderDialogBoxes(newDataList, selectCards)}             
-            </div>
-          </DialogContent>
-        </Dialog>
-
+        {/* Dialog Card */}
+        {this.state.openDialog && 
+          <CustomDialog 
+            dataList={newDataList} 
+            open={this.state.openDialog}
+            onClose={this.handleCloseDialog} 
+            onDataReceived={this.handleSearchQueryFromDialog}
+            onDataReceivedPokemon={this.handleAddPokemon}
+          /> 
+        }
 
       </div>
     )

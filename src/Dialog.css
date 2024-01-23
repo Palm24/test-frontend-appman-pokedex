@@ -1,0 +1,31 @@
+.layout-body-dialog {
+    font-family: 'Atma', cursive;
+    padding: 0.1rem;
+}
+
+.cardBox-dialog {
+    padding: 3px;
+    box-sizing: content-box;
+    width: 100%;
+    margin-bottom: 1rem;
+    box-shadow: 3px 4px 8px #d5d6dc;
+    transition: box-shadow 0.1s;
+}
+.cardBox-dialog:hover {
+    box-shadow: 3px 4px 8px #474444;
+}
+
+.dialog-font-size-name {
+    font-size: 3.3rem;
+    font-family: 'Gaegu', cursive;
+}
+
+.dialog-font-size-detail {
+    font-size: 1.5rem;
+}
+
+.btnDialogAdd {
+    font-family: 'Atma', cursive;
+    color: #dc7777;
+    font-size: 2.5rem;
+}
